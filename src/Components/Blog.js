@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import {db} from "../firebase-init";
 
 //Import all the required functions from fireStore
-import { collection, doc, setDoc} from "firebase/firestore"; 
+import { collection, addDoc} from "firebase/firestore"; 
 
 export default function Blog(){
 
@@ -28,9 +28,18 @@ export default function Blog(){
         /** Add a new document with an auto generated id. */ 
         /*********************************************************************** */
 
-        const docRef = doc(collection(db, "blogs"))
+        //addDoc either this way
+
+        //await addDoc(collection(db, "blogs"), {
+            // title: formData.title,
+            // content: formData.content,
+            // createdOn: new Date()
+        // })
+
+        //addDoc either this way
+        const docRef = collection(db, "blogs");
             
-        await setDoc(docRef, {
+        await addDoc(docRef, {
                 title: formData.title,
                 content: formData.content,
                 createdOn: new Date()
