@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import {db} from "../firebase-init";
 
 //Import all the required functions from fireStore
-import { collection, deleteDoc, doc, getDocs, onSnapshot, setDoc} from "firebase/firestore"; 
+import { collection, doc, getDocs, onSnapshot, setDoc} from "firebase/firestore"; 
 
 export default function Blog(){
 
@@ -84,17 +84,9 @@ export default function Blog(){
         setformData({title: "", content: ""});
     }
 
-    async function removeBlog(id){
+    async function removeBlog(i){
 
-        //setBlogs( blogs.filter((blog,index)=> index !== i));
-
-        /*********************************************************************** */
-        /** Deleting a document from the Firestore */ 
-        /*********************************************************************** */
-        const docRef = doc(db,"blogs",id);
-        await deleteDoc(docRef);
-
-        /*********************************************************************** */
+        setBlogs( blogs.filter((blog,index)=> index !== i));
  
      }
 
@@ -140,8 +132,7 @@ export default function Blog(){
 
                 <div className="blog-btn">
                         <button onClick={() => {
-                            // passing the blog id instead of index of the array to remove the document from the database
-                            removeBlog(blog.id)
+                             removeBlog(i)
                         }}
                         className="btn remove">
 
