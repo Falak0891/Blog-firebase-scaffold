@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import {db} from "../firebase-init";
 
 //Import all the required functions from fireStore
-import { collection, doc, getDocs, setDoc} from "firebase/firestore"; 
+import { collection, doc, setDoc} from "firebase/firestore"; 
 
 export default function Blog(){
 
@@ -18,36 +18,11 @@ export default function Blog(){
         titleRef.current.focus()
     },[]);
 
-    useEffect(() => {
-        
-        /*********************************************************************** */
-        /** get all the documents from the fireStore using getDocs() */ 
-        /*********************************************************************** */
-        async function fetchData(){
-            const snapShot =await getDocs(collection(db, "blogs"));
-            console.log(snapShot);
-
-            const blogs = snapShot.docs.map((doc) => {
-                return{
-                    id: doc.id,
-                    ...doc.data()
-                }
-            })
-            console.log(blogs);
-            setBlogs(blogs);
-
-        }
-
-        fetchData();
-        /*********************************************************************** */
-    },[]);
-
     async function handleSubmit(e){
         e.preventDefault();
         titleRef.current.focus();
 
-        // Commenting setBlogs() as realtime Updates will be recieved from the database
-        //setBlogs([{title: formData.title,content:formData.content}, ...blogs]);
+        setBlogs([{title: formData.title,content:formData.content}, ...blogs]);
 
         /*********************************************************************** */
         /** Add a new document with an auto generated id. */ 
