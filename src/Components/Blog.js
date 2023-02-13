@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import {db} from "../firebase-init";
 
 //Import all the required functions from fireStore
-import { collection, doc, getDocs, onSnapshot, setDoc} from "firebase/firestore"; 
+import { collection, doc, getDocs, setDoc} from "firebase/firestore"; 
 
 export default function Blog(){
 
@@ -23,40 +23,22 @@ export default function Blog(){
         /*********************************************************************** */
         /** get all the documents from the fireStore using getDocs() */ 
         /*********************************************************************** */
-        // async function fetchData(){
-        //     const snapShot =await getDocs(collection(db, "blogs"));
-        //     console.log(snapShot);
+        async function fetchData(){
+            const snapShot =await getDocs(collection(db, "blogs"));
+            console.log(snapShot);
 
-        //     const blogs = snapShot.docs.map((doc) => {
-        //         return{
-        //             id: doc.id,
-        //             ...doc.data()
-        //         }
-        //     })
-        //     console.log(blogs);
-        //     setBlogs(blogs);
-
-        // }
-
-        // fetchData();
-        /*********************************************************************** */
-
-
-        /*********************************************************************** */
-        /** Get RealTime Updates from the databse using onSnapshot() */ 
-        /*********************************************************************** */
-
-        const unsub =  onSnapshot(collection(db,"blogs"), (snapShot) => {
             const blogs = snapShot.docs.map((doc) => {
-                    return{
-                        id: doc.id,
-                        ...doc.data()
-                    }
-                })
-                console.log(blogs);
-                setBlogs(blogs);
-        })
+                return{
+                    id: doc.id,
+                    ...doc.data()
+                }
+            })
+            console.log(blogs);
+            setBlogs(blogs);
 
+        }
+
+        fetchData();
         /*********************************************************************** */
     },[]);
 
