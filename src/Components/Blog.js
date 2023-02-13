@@ -1,8 +1,5 @@
-//Blogging App with Firebase
+//Blogging App with firebase
 import { useState, useRef, useEffect } from "react";
-
-//Import fireStore reference from frebaseInit file
-import {db} from "../firebase-init";
 
 export default function Blog(){
 
